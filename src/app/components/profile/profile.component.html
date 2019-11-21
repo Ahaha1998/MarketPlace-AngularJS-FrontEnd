@@ -1,0 +1,69 @@
+<div class="card">
+  <div class="row">
+    <h4 class="center teal-text pt-2">Profile</h4>
+    <div *ngIf="userDetails" class="card-content">
+    <form [formGroup]="profileForm" (submit)="profileForm.valid && updateProfile(username.value, email.value, address.value, phone.value)" enctype="multipart/form-data">
+        <div class="col m4 center">
+          <img [src]="imgURL" class="circle white" width="200" height="200"><hr>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Photo</span>
+              <input name="pImage" type="file" accept='image/*' (change)="onFileChanged($event)" #file>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Upload Profile Image">
+            </div>
+          </div>
+          <br>
+          <button class="btn teal" type="submit">Update Profile</button>
+        </div>
+
+        <div class="col m8">
+          
+          <div class="input-field">
+            <i class="material-icons prefix">account_circle</i>
+            <input formControlName="username" type="text" #username>
+            <label class="active">Username</label>
+          </div>
+          
+          <div class="input-field">
+            <i class="material-icons prefix">local_post_office</i>
+            <input formControlName="email" type="email" #email>
+            <label class="active">Email</label>
+          </div>
+          
+          <div class="input-field">
+            <i class="material-icons prefix">location_on</i>
+            <input formControlName="address" type="text" #address>
+            <label class="active">Address</label>
+          </div>
+          
+          <div class="input-field">
+            <i class="material-icons prefix">phone</i>
+            <input formControlName="phone" type="number" #phone>
+            <label class="active">Phone</label>
+          </div>
+          
+          <i class="material-icons prefix">wc</i>
+          <label class="font-size">Gender</label>
+          <div class="input-field">
+            <div class="row">
+              <div class="col s2">
+                <label>
+                  <input formControlName="gender" type="radio" value="Man" (change)="getRadioValue($event)" #gender>
+                  <span>Man</span><br>
+                </label>
+              </div>
+              <div class="col s2">
+                <label>
+                  <input formControlName="gender" type="radio" value="Woman" (change)="getRadioValue($event)" #gender>
+                  <span>Woman</span><br><br>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

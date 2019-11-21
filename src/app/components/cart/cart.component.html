@@ -1,0 +1,62 @@
+<div class="card">
+  <div *ngIf="Msg" class="card-panel red white-text center">{{Msg}}</div>
+  <div class="col m12">
+    <form>
+    <table>
+      <thead>
+        <tr>
+          <th style="padding-left:20px">No.</th>
+          <th>Item Name</th>
+          <th style="text-align: center">Quantity</th>
+          <th style="text-align:right" >Item Price</th>
+          <th style="text-align:right">Total Price</th>
+          <th></th>
+        </tr>
+      </thead>
+    
+      <tbody *ngIf="cartData">
+        <tr *ngFor="let cart of cartData; let i=index">
+          <th style="padding-left:20px">{{i+1}}</th>
+          <td>{{cart['productId'].productName}}</td>
+          <td style="text-align:center">{{cart.totalProduct}}</td>
+          <td style="text-align:right">Rp. {{cart['productId'].price | number:'1.0'}}</td>
+          <td style="text-align:right">Rp. {{cart.totalPrice | number:'1.0'}}</td>
+          <input type="hidden" name="idPro" value="{{cart['productId']._id}}" #idPro>
+          <td style="text-align: center"><a (click)="minQuantity(idPro.value)" style="cursor: pointer"><i class="fas fa-minus teal-text"></i></a></td>
+        </tr>
+        <tr>
+          <th style="text-align:left; padding-left: 15px">Total:</th>
+          <th style="text-align:right" colspan="4">Rp. {{totalPriceProduct | number:'1.0'}}</th>
+          <th style="text-align: center"><i class="fas fa-plus"></i></th>
+        </tr>
+      </tbody>
+    </table>
+    </form>
+  </div>
+</div>
+
+<div class="right pr-2">
+  <a [routerLink]="['/']">
+    <button class="btn green waves-effect" type="submit">Buy More</button>
+  </a>
+  &nbsp;
+  <button data-target="modal1" class="btn waves-effect modal-trigger" [disabled]="cartData.length === 0" type="submit">Checkout
+    <i class="material-icons right">send</i>
+  </button>
+</div>
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Do You Accept?</h4>
+    <p>Please remember this is only for Project! Not for Real MarketPlace! Bug will appear somewhere..</p>
+    <div class="row">
+      <div class="input-field col s12">
+        <input placeholder="Pay Here.." id="payment" type="number" class="validate" name="payment" #payment>
+        <label for="payment">Payment</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a (click)="addHistories(payment.value)" class="modal-close waves-effect waves-green btn-flat">Pay</a>
+  </div>
+</div>

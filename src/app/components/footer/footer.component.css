@@ -1,0 +1,20 @@
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+footer ul.justify {
+  text-align: center;
+  display: table;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+footer ul.justify li {
+  margin-left: auto;
+  margin-right: auto;
+  width: 82px;
+}

@@ -1,0 +1,76 @@
+<div class="card">
+  <div class="row">
+    <div class="col m4">
+      <br>
+      <div class="center teal-text">
+        <img src="{{idUser.photo}}" class="circle white" width="170" heigth="170"><hr>
+        <h6><i class="fas fa-user"></i>&nbsp;&nbsp;Seller&nbsp;&nbsp;<i class="fas fa-user"></i></h6>
+        <h5>{{idUser.username}}</h5><hr><br>
+        <h6><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Live in {{idUser.address}}</h6>
+        <h6><i class="fas fa-phone"></i>&nbsp;&nbsp;Contact Me: +62 {{idUser.phone}}</h6>
+      </div>
+    </div>
+    <div class="col m8 bl-silver">
+      <div class="row">
+        <div class="col m12">
+          <h4 class="teal-text header center">My Shop</h4>
+          <div class="row">
+            <div *ngIf="dataPro?.length; else noData">
+              <div *ngFor="let proMo of dataPro; let i=index">
+                <div class="col m4">
+                  <div class="card">
+                    <div class="card-image">
+                      <img src="{{proMo.photo}}" height="200">
+                      <a class="card-title" [routerLink]="['/edit', proMo._id]">
+                        <button class="btn waves-effect btn-respon" type="submit">Edit
+                          <i class="fas fa-edit left"></i>
+                        </button>
+                      </a>
+                    </div>
+                    <div class="card-action center">
+                      <span class="card-title truncate" style="font-weight: bolder">{{proMo.productName}}</span>
+                      <p>Category: {{proMo.category}}</p>
+                      <p>Price: Rp {{proMo.price | number:'1.0'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #noData>
+              <div class="col m12 center">
+                <img src="../../../assets/background/box.jpg" height="350">
+                <h5 class="orange-text text-lighten-2">You haven't sell anything yet!</h5>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="row">
+    <div class="col m4">
+      <h4 class="teal-text header center">History Purchase</h4><hr>
+      <img src="../../../assets/background/total.jpg" height="200">
+    </div>
+    <div *ngIf="hisDat?.length">
+      <div *ngFor="let history of hisDat; let i=index" class="col m4">
+        <ul class="collection">
+          <li class="collection-item grey-text">
+            <span class="secondary-content grey-text">{{history.time}}</span><br>
+            <h5 class="title">Nota #{{i+1}}</h5>
+            <p>Product Name:<span class="secondary-content grey-text">{{history['productId'].productName}}</span></p>
+            <p>Quantity: {{history.totalProduct}}<span class="secondary-content grey-text">Price: Rp.
+                {{history['productId'].price | number:'1.0'}}</span>
+            </p>
+            <p>Total:<span class="secondary-content grey-text">Rp. {{history.totalPrice | number:'1.0'}}</span></p>
+            <p>Payment:<span class="secondary-content grey-text">Rp. {{history.payment | number:'1.0'}}</span></p>
+            <hr>
+            <p>Change:<span class="secondary-content grey-text">Rp. {{history.change | number:'1.0'}}</span><br></p>
+          </li>
+        </ul>
+      </div>
+    </div> 
+  </div>
+</div>

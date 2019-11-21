@@ -1,0 +1,72 @@
+<div class="center card-panel" style="margin: 50px; padding: 50px;">
+  <h4 class="center teal-text text-lighten-2 mb-15">Sell Your Product</h4>
+  <img src="../../../assets/background/openshop.jpg" height="200">
+  <form [formGroup]="productForm" class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="name" id="name" class="validate" type="text" #name required>
+        <label for="name">Product Name</label>
+        <div *ngIf="productForm.controls['name'].invalid && productForm.controls['name'].touched"
+          class="red-text">
+          <div *ngIf="productForm.controls['name'].errors.required">Nama Produk harus diisi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea formControlName="detail" class="validate" id="detail" class="materialize-textarea" #detail required></textarea>
+        <label for="detail">Description</label>
+        <div *ngIf="productForm.controls['detail'].invalid && productForm.controls['detail'].touched" class="red-text">
+          <div *ngIf="productForm.controls['detail'].errors.required">Deskripsi produk harus diisi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <select (change)="getValue($event)">
+          <option disabled selected>Choose your option</option>
+          <option *ngFor="let ct of categoryList" [value]="ct.category">{{ct.category}}</option>
+        </select>
+        <label>Product Category</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="price" id="price" class="validate" type="number" #price required>
+        <label for="price">Price</label>
+        <div *ngIf="productForm.controls['price'].invalid && productForm.controls['price'].touched"
+          class="red-text">
+          <div *ngIf="productForm.controls['price'].errors.required">Harga harus diisi</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="stock" id="stock" class="validate" type="number" minlength="1" #stock required>
+        <label for="stock">Stock</label>
+        <div *ngIf="productForm.controls['stock'].invalid && productForm.controls['stock'].touched" class="red-text">
+          <div *ngIf="productForm.controls['stock'].errors.required">Stok harus diisi</div>
+          <div *ngIf="productForm.controls['stock'].erros.minlength">Stok minimal 1</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>Photo</span>
+          <input name="productIMG" type="file" accept='image/*' (change)="onFileChanged($event)" #file>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Upload Product Image">
+        </div>
+      </div>
+    </div>
+    <button (click)="addProduct(name.value, detail.value, price.value, stock.value)" class="btn teal" [disabled]="productForm.pristine || productForm.invalid" type="submit">Sell Product<i
+        class="material-icons right">send</i></button>
+  </form>
+</div>

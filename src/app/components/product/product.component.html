@@ -1,0 +1,112 @@
+<!--Per Item-->
+<div class="col s12 m7">
+    <div class="card horizontal">
+        <div class="card-image">
+            <img src="{{dataPro.photo}}">
+        </div>
+        <div class="card-stacked">
+            <div class="card-content">
+                <h5>{{dataPro.productName}}<span class="badge">{{dataPro.category}}</span></h5>
+                <h4>Description : </h4>
+                <p>Stock: {{dataPro.stock}}</p><br>
+                <p style="text-align:justify">{{dataPro.detail}}</p><br>
+                <p>Price: Rp {{dataPro.price | number:'1.0'}}</p><br>
+                <div *ngIf="isLoggedIn">
+                    <div *ngIf="!isThisUser; else thatUser">
+                        <form [formGroup]="quan">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input formControlName="quantity" placeholder="How Much?" id="quantity" type="number" class="validate" name="quantity" #quantity>
+                                <label for="quantity" class="active">Quantity</label>
+                            </div>
+                            <div class="col s6 mt-2">
+                                <button (click)="addCarts(quantity.value)" [disabled]="quan.pristine || quan.invalid" class="btn teal" type="submit">Add<i class="fas fa-plus left"></i>
+                                </button>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <ng-template #thatUser>
+                        <a [routerLink]="['/edit', dataPro._id]">
+                            <button class="btn cyan" type="submit">Edit
+                                <i class="fas fa-edit left"></i>
+                            </button>
+                        </a>
+                    </ng-template>
+                </div>
+                <div *ngIf="Msg" class="card-panel red white-text center">{{Msg}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="row">
+        <div class="col m8" style="border-right:1px solid silver">
+            <div class="row">
+                <div class="col m12">
+                    <h6 class="header"><b>More By {{dataPro['seller'].username}}</b></h6>
+                    <div class="row">
+                        <div *ngFor="let proMo of morePro; let i=index">
+                            <div *ngIf="i < 3" class="col m4">
+                                <a href="/product/{{proMo._id}}">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="{{proMo.photo}}" height="200">
+                                        </div>
+                                        <div class="card-action teal-text center">
+                                            <span class="card-title">{{proMo.productName}}</span>
+                                            <p>Price: Rp {{proMo.price | number:'1.0'}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col m4" style="border-left:1px solid silver">
+            <br>
+            <div class="center">
+                <img src="{{dataPro['seller'].photo}}" width="170" heigth="170">
+            </div>
+            <div class="collection">
+                <a class="collection-item"><span class="badge">{{dataPro['seller'].username}}</span><i class="fas fa-user"></i>&nbsp;&nbsp;Seller:</a>
+                <a class="collection-item"><span class="badge">{{dataPro['seller'].address}}</span><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;Address:</a>
+                <a class="collection-item"><span class="badge">{{dataPro['seller'].phone}}</span><i class="fas fa-phone"></i>&nbsp;&nbsp;Phone:</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-panel">
+    <div class="grey-text center">
+        <h5 class="no-mt">Comment..</h5>
+        <hr>
+    </div>
+    <div *ngIf="isLoggedIn" class="row">
+        <form style="margin-top: 20px">
+            <div class="input-field col l11">
+                <textarea name="comment" class="materialize-textarea" #comment></textarea>
+            </div>
+            <div class="col l1">
+                <button name="submit-comment" type="submit" (click)="addComments(comment.value)" class="btn waves-effect teal lighten-1" style="margin-top: 20px" ><i class="material-icons prefix">create</i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <ul *ngIf="commentData; else noComment" class="collection">
+            <li *ngFor="let comments of commentData" class="collection-item avatar">
+                <img src="{{comments['user'].photo}}" class="circle">
+                <span class="title">{{comments['user'].username}}</span>
+                <p>{{comments.comment}}</p>
+            </li>
+        </ul>
+        <ng-template #noComment>
+            <h5 class="black-text">No Comment Yet!</h5>
+        </ng-template>
+    </div>
+</div>
+
+

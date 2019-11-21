@@ -1,0 +1,27 @@
+<div class="card-panel center" style="margin: 50px 280px; padding: 50px;">
+  <h4 class="teal-text text-lighten-2 mb-15">Login</h4>
+  <img src="../../../assets/background/login.jpg" height="200">
+  <form [formGroup]="loginForm" (submit)="loginForm.valid && login(loginForm)" class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="username" id="username" class="validate" type="text" #username required>
+        <label for="username">Username</label>
+        <div *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].invalid" class="red-text">
+          <div *ngIf="loginForm.controls['username'].errors.required">Username harus diisi</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="password" id="password" class="validate" type="password" #password required>
+        <label for="password">Password</label>
+        <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['username'].invalid" class="red-text">
+          <div *ngIf="loginForm.controls['password'].errors.required">Password harus diisi</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn waves-effect mt-5" type="submit">Login<i class="material-icons right">send</i></button>
+  </form>
+</div>
+
+<div *ngIf="errMsg" class="card-panel red white-text">{{ errMsg }}</div>

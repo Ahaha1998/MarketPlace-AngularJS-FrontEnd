@@ -1,0 +1,14 @@
+.mt-2 {
+    margin-top: 20px
+}
+
+.no-mt {
+    margin-top: 0
+}
+
+hr {
+    height: 1px;
+  color: #e0e0e0;
+  background-color: #e0e0e0;
+  border: none;
+}

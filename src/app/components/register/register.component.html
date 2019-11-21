@@ -1,0 +1,40 @@
+<div class="center card-panel" style="margin: 50px 280px; padding: 50px;">
+  <h4 class="center teal-text text-lighten-2 mb-15">Register</h4>
+  <img src="../../../assets/background/create.jpg" height="200">
+  <form [formGroup]="registerForm" class="col s12">
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="username" id="username" class="validate" type="text" #username required>
+        <label for="username">Username</label>
+        <div *ngIf="registerForm.controls['username'].invalid && registerForm.controls['username'].touched"
+          class="red-text">
+          <div *ngIf="registerForm.controls['username'].errors.required">Username harus diisi</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="email" id="email" class="validate" type="email" #email required>
+        <label for="email">Email</label>
+        <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched" class="red-text">
+          <div *ngIf="registerForm.controls['email'].errors.required">Email harus diisi</div>
+          <div *ngIf="registerForm.controls['email'].errors.email">Harap isikan email dengan benar</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input formControlName="password" id="password" class="validate" type="password" #password required>
+        <label for="password">Password</label>
+        <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched"
+          class="red-text">
+          <div *ngIf="registerForm.controls['password'].errors.required">Password harus diisi</div>
+        </div>
+      </div>
+    </div>
+    <button (click)="addUser(username.value, email.value, password.value)"
+    class="btn waves-effect" [disabled]="registerForm.pristine || registerForm.invalid" 
+    type="submit" >Register<i class="material-icons right">send</i></button>
+  </form>
+</div>
+

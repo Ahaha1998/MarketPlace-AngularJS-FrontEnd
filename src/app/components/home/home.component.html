@@ -1,0 +1,55 @@
+<br>
+<div class="row no-mb">
+    <div class="card-panel teal-text center white">
+        <img src="../../../assets/background/logo1.jpg" height="300"><hr>
+        <h4>Make Your Dream Comes True!</h4>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis consequuntur laborum laudantium ad ex, quos in sequi eos minus doloremque, ipsum dolor dolores omnis, autem rem quae id assumenda ab?</p>
+    </div>
+</div>
+
+<nav class="teal lighten-1">
+    <form [formGroup]="searchBar">
+        <div class="nav-wrapper">
+            <div class="input-field white-text">
+                <input formControlName="searchIn" [(ngModel)]="search.productName" placeholder="Search Item" id="search" type="search" #searchIn required>
+                <label class="label-icon" for="search">
+                    <i class="material-icons">search</i></label>
+            </div>
+        </div>
+    </form>
+</nav>
+
+<!--Menu-Barang-->
+<div id="test1" class="col s12">
+    <br>
+    <br>
+    <div class="row">
+        <div *ngFor="let proDa of dataPro | filterBy: search; let i=index">
+            <div *ngIf="i < 4">
+                <div class="col m3">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{{proDa.photo}}" height="210">
+                            <a [routerLink]="['/product', proDa._id]" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title truncate" style="font-weight: bolder">{{proDa.productName}}</span>
+                            <a class="green-text">Rp {{proDa.price | number:'1.0'}}<span class="badge">{{proDa.category}}</span></a><br>
+                            <p class="truncate">{{proDa.detail}}</p>
+                            <h6>Seller: {{proDa['seller'].username}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="(dataPro | filterBy: search).length == 0" class="center">
+            <div class="row">
+                <div class="col m12">
+                    <div class="card-panel white">
+                        <img src="../../../assets/background/404.jpg" height="700">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
